@@ -11,7 +11,7 @@
 	<groupId>q.example</groupId>
 	<artifactId>q</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>q</name>
+	<name>q</name> 
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
