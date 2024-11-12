@@ -6,17 +6,14 @@ import org.openqa.selenium.WebDriver;
 public class FeedPage {
     private WebDriver driver;
 
-    // Locators for Feed page elements
     private By postContentTextarea = By.className("postContent");
     private By createPostButton = By.xpath("//button[text()='Create Post']");
     private By existingPosts = By.className("post");
 
-    // Constructor
     public FeedPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    // Methods for interacting with the feed page
     public boolean isPostsExist() {
         return driver.findElements(existingPosts).size() > 0;
     }
