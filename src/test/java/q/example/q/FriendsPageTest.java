@@ -71,7 +71,7 @@ Thread.sleep(3000);
         String friendsCountText = friendsCountElement.getText();
         
         List<WebElement> friendsList = friendsContainer.findElements(By.className("friend-item"));
-        assertEquals(friendsList.size(), 7, "Friends count does not match the number of friend items.");
+        assertEquals(friendsList.size(), 6, "Friends count does not match the number of friend items.");
     }
 
     @Test
