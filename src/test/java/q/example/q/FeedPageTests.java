@@ -210,6 +210,37 @@ void testAddComment() {
     assertEquals(initialCommentCount + 1, updatedCommentCount, "Comment count did not increase.");
 }
 
+@RepeatedTest(3)
+@Test
+void testSharePostWithComment() {
+    loginPage.enterUsername("FatmaQnn");
+    loginPage.enterPassword("123mai321");
+    loginPage.clickLoginButton();
+    
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+    WebElement feedContainer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Feed")));
+    
+    JavascriptExecutor js = (JavascriptExecutor) driver;
+    js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+
+    WebElement post = feedContainer.findElement(By.xpath("//*[@id='Feed']/div[1]"));
+    
+    WebElement shareButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"Feed\"]/div[2]/div[4]/div[3]/button")));
+    
+    shareButton.click();
+    
+    WebElement sharePopper = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("share-popper")));
+    
+    WebElement commentTextArea = sharePopper.findElement(By.cssSelector(".share-popper-content textarea"));
+    commentTextArea.sendKeys("hi hi"); 
+    WebElement postShareButton = sharePopper.findElement(By.xpath("//button[contains(text(), 'Post Share')]"));
+    postShareButton.click();
+    
+    WebElement toastify = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("Toastify")));
+    
+    assertNotNull(toastify, "Toast notification did not appear.");}
+
 
 
 
