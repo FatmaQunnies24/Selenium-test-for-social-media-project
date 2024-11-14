@@ -32,7 +32,6 @@ class FriendsPageTest {
 
     private static By loginButton = By.xpath("//*[@id=\"root\"]/div[2]/div[1]/nav/div/ul/li[3]/a");
 
-    // Method to log in and navigate to the Friends page
     private void navigateToFriendsPage() {
         loginPage.enterUsername("fatma2");
         loginPage.enterPassword("123mai321");
