@@ -35,7 +35,7 @@ class ReelPageTests {
 
     @Test
     void testIfReelsArePresent() {
-        loginPage.enterUsername("FatmaQnn");
+        loginPage.enterUsername("fatma2");
         loginPage.enterPassword("123mai321");
         loginPage.clickLoginButton();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
@@ -49,7 +49,7 @@ class ReelPageTests {
 
     @Test
 void testCreateReel() {
-    loginPage.enterUsername("FatmaQnn");
+    loginPage.enterUsername("fatma2");
     loginPage.enterPassword("123mai321");
     loginPage.clickLoginButton();
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
@@ -77,19 +77,16 @@ void testLikeAndFavoriteReel() throws InterruptedException {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
     wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
 
-    loginPage.enterUsername("FatmaQnn");
+    loginPage.enterUsername("fatma2");
     loginPage.enterPassword("123mai321");
     loginPage.clickLoginButton();
     
     ReelPage.clickreelButton();
-    Thread.sleep(3000);  // Wait for reel page to load
-
+    Thread.sleep(3000);  
     wait.until(ExpectedConditions.urlToBe("http://localhost:3000/Reel"));
 
-    // Wait for reel container to be visible
-
-    boolean isReelPresent = !driver.findElements(By.id("Real")).isEmpty(); // أو XPath/ CSS صحيح للتحقق من وجود العنصر
-    assumeTrue(isReelPresent, "Reel section not found, skipping test.");
+    boolean isReelPresent = !driver.findElements(By.id("Real")).isEmpty(); 
+      assumeTrue(isReelPresent, "Reel section not found, skipping test.");
     int initialLikeCount = Integer.parseInt(
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#Real > div:nth-child(2) > div.numberLikeComment > div:nth-child(1)")))
         .getText().trim().split(" ")[0]
@@ -116,8 +113,7 @@ System.out.println(initialLikeCount);
     System.out.println(initialLikeCount);
 
     likeButton.click();
-    Thread.sleep(3000);  // Wait for like action to complete again
-    System.out.println(initialLikeCount);
+    Thread.sleep(3000);  System.out.println(initialLikeCount);
 
     WebElement favoriteButton = driver.findElement(By.xpath("//*[@id=\"Real\"]/div[2]/div[4]/div[1]/div/div/button[2]"));
     favoriteButton.click();
@@ -144,7 +140,7 @@ void testAddCommentToReel() throws InterruptedException {
     wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
   
     // Log in
-    loginPage.enterUsername("FatmaQnn");
+    loginPage.enterUsername("fatma2");
     loginPage.enterPassword("123mai321");
     loginPage.clickLoginButton();
 
