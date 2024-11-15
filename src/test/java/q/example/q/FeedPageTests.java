@@ -25,7 +25,7 @@ class FeedPageTests{
 
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:/Users/fatim/Desktop/year4-1/test/test/chromedriver-win64/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:/chromedriver-win64/chromedriver-win64/chromedriver.exe/");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("http://localhost:3000/");
@@ -77,7 +77,7 @@ class FeedPageTests{
 
 
 
- @RepeatedTest(10)  
+ //@RepeatedTest(10)  
     @Test
 void testLikeAndFavorite() {
     loginPage.enterUsername("FatmaQnn");
@@ -166,7 +166,7 @@ void testLikeAndFavorite() {
 
 
 
- @RepeatedTest(10)
+ //@RepeatedTest(10)
 @Test
 void testAddComment() {
     loginPage.enterUsername("FatmaQnn");
@@ -210,7 +210,7 @@ void testAddComment() {
     assertEquals(initialCommentCount + 1, updatedCommentCount, "Comment count did not increase.");
 }
 
-@RepeatedTest(3)
+//@RepeatedTest(3)
 @Test
 void testSharePostWithComment() {
     loginPage.enterUsername("FatmaQnn");

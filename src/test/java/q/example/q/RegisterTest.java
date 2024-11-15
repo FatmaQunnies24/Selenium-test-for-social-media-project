@@ -25,7 +25,7 @@ class RegisterTest {
 
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:/Users/fatim/Desktop/year4-1/test/test/chromedriver-win64/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:/chromedriver-win64/chromedriver-win64/chromedriver.exe/");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("http://localhost:3000/"); 

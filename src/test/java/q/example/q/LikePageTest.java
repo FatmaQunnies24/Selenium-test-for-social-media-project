@@ -1,13 +1,12 @@
+//crossbrowser here
+
 package q.example.q;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,10 +20,17 @@ class LikePageTest {
     private WebDriver driver;
     private LoginPage loginPage;
 
-    @BeforeEach
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:/Users/fatim/Desktop/year4-1/test/test/chromedriver-win64/chromedriver.exe");
-        driver = new ChromeDriver();
+    private void setUp(String browser) {
+        if (browser.equalsIgnoreCase("chrome")) {
+            System.setProperty("webdriver.chrome.driver", "C:/chromedriver-win64/chromedriver-win64/chromedriver.exe/");
+            driver = new ChromeDriver();
+        } else if (browser.equalsIgnoreCase("edge")) {
+            System.setProperty("webdriver.edge.driver", "c:/Users/lenovo/OneDrive/Desktop/edgedriver_win64/msedgedriver.exe");
+            driver = new EdgeDriver();
+        } else {
+            throw new IllegalArgumentException("Unsupported browser: " + browser);
+        }
+
         driver.manage().window().maximize();
         driver.get("http://localhost:3000/");
         loginPage = new LoginPage(driver);
@@ -42,9 +48,12 @@ class LikePageTest {
         likesPageButton.click();
         wait.until(ExpectedConditions.urlToBe("http://localhost:3000/Likes"));
     }
-// @RepeatedTest(10)
-    @Test
-    void testIfDislikeButtonIsPresent() throws InterruptedException {
+
+    @ParameterizedTest
+    @ValueSource(strings = {"chrome", "edge"}) // تحديد المتصفحات
+    void testIfDislikeButtonIsPresent(String browser) throws InterruptedException {
+        setUp(browser);
+
         navigateToLikesPage();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -54,11 +63,12 @@ class LikePageTest {
         Thread.sleep(5000); 
         WebElement dislikeButtons = likesContainer.findElement(By.xpath("//button[text()='Dislike']"));
         Thread.sleep(5000);
-        assertTrue(likesList.size() > 0 &&dislikeButtons != null , "No Dislike button found on the page!");
+        assertTrue(likesList.size() > 0 && dislikeButtons != null, "No Dislike button found on the page!");
+
+        tearDown();
     }
 
-    @AfterEach
-    public void tearDown() {
+    private void tearDown() {
         if (driver != null) {
             driver.quit();
         }

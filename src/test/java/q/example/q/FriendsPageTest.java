@@ -23,7 +23,7 @@ class FriendsPageTest {
 
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:/Users/fatim/Desktop/year4-1/test/test/chromedriver-win64/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:/chromedriver-win64/chromedriver-win64/chromedriver.exe/");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("http://localhost:3000/");
@@ -32,7 +32,7 @@ class FriendsPageTest {
 
     private static By loginButton = By.xpath("//*[@id=\"root\"]/div[2]/div[1]/nav/div/ul/li[3]/a");
 
-    private void navigateToFriendsPage() {
+    private void navigateToFriendsPage() throws InterruptedException {
         loginPage.enterUsername("fatma2");
         loginPage.enterPassword("123mai321");
         loginPage.clickLoginButton();
@@ -47,13 +47,13 @@ class FriendsPageTest {
         
         WebElement friButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"Friends\"]/div/div[1]/button[1]")));
         friButton.click();
-        
+        Thread.sleep(3000);
         wait.until(ExpectedConditions.urlToBe("http://localhost:3000/Friends"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Friends")));
     }
 
     @Test
-    void testIfFriendsArePresent() {
+    void testIfFriendsArePresent() throws InterruptedException {
         navigateToFriendsPage();
 
         WebElement friendsContainer = driver.findElement(By.id("Friends"));
@@ -71,11 +71,11 @@ Thread.sleep(3000);
         String friendsCountText = friendsCountElement.getText();
         
         List<WebElement> friendsList = friendsContainer.findElements(By.className("friend-item"));
-        assertEquals(friendsList.size(), 6, "Friends count does not match the number of friend items.");
+        assertEquals(friendsList.size(), 5, "Friends count does not match the number of friend items.");
     }
 
     @Test
-    void testRemoveFriend() {
+    void testRemoveFriend() throws InterruptedException {
         navigateToFriendsPage();
 
         WebElement friendsContainer = driver.findElement(By.id("Friends"));

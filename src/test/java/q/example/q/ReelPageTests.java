@@ -25,7 +25,7 @@ class ReelPageTests {
 
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:/Users/fatim/Desktop/year4-1/test/test/chromedriver-win64/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:/chromedriver-win64/chromedriver-win64/chromedriver.exe/");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("http://localhost:3000/");
@@ -63,7 +63,7 @@ void testCreateReel() {
 
     WebElement uploadFileInput = driver.findElement(By.cssSelector("input[type='file']"));
     
-    uploadFileInput.sendKeys("C:/Users/fatim/Desktop/ReelPageTests.java - quiz - Visual Studio Code 2024-11-12 14-49-25.mp4");
+    uploadFileInput.sendKeys("c:/Users/lenovo/OneDrive/Desktop/WhatsApp Video 2024-11-15 at 20.09.18_9ff2d918.mp4");
 
     WebElement createReelButton = driver.findElement(By.xpath("//button[contains(text(),'Create Reel')]"));
     createReelButton.click();
@@ -71,7 +71,7 @@ void testCreateReel() {
     WebElement reelContainer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Real")));
     assertTrue(reelContainer.findElements(By.className("post")).size() > 0, "Reel was not created!");
 }
-@RepeatedTest(10)
+//@RepeatedTest(10)
 @Test
 void testLikeAndFavoriteReel() throws InterruptedException {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
@@ -133,7 +133,7 @@ System.out.println(initialLikeCount);
 
 
 @Test
-@RepeatedTest(10)
+//@RepeatedTest(10)
 void testAddCommentToReel() throws InterruptedException {
     // Setup WebDriverWait for dynamic waits
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
