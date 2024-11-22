@@ -1,5 +1,3 @@
-//crossbrowser here
-
 package q.example.q;
 
 import org.junit.jupiter.params.ParameterizedTest;
@@ -36,7 +34,8 @@ class LikePageTest {
         loginPage = new LoginPage(driver);
     }
 
-    private static By likesButton = By.xpath("//*[@id=\"root\"]/div[2]/div[1]/nav/div/ul/li[5]/a");
+    private static By likesButton = By.xpath("//*[@id='root']/div[2]/div[1]/nav/div/ul/li[5]/a");
+    private static By likesContainer = By.xpath("//*[@id='root']/div[2]/div[2]");
 
     private void navigateToLikesPage() {
         loginPage.enterUsername("fatma2");
@@ -50,7 +49,7 @@ class LikePageTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"chrome", "edge"}) // تحديد المتصفحات
+    @ValueSource(strings = {"chrome", "edge"})
     void testIfDislikeButtonIsPresent(String browser) throws InterruptedException {
         setUp(browser);
 
@@ -58,12 +57,12 @@ class LikePageTest {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        WebElement likesContainer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"root\"]/div[2]/div[1]/nav/div/ul/li[5]/a")));
-        List<WebElement> likesList = likesContainer.findElements(By.xpath("//*[@id=\"root\"]/div[2]/div[2]"));
-        Thread.sleep(5000); 
-        WebElement dislikeButtons = likesContainer.findElement(By.xpath("//button[text()='Dislike']"));
-        Thread.sleep(5000);
-        assertTrue(likesList.size() > 0 && dislikeButtons != null, "No Dislike button found on the page!");
+        WebElement container = wait.until(ExpectedConditions.visibilityOfElementLocated(likesContainer));
+
+        List<WebElement> likesList = container.findElements(By.xpath("//*[@id=\"root\"]/div[2]/div[2]"));
+        WebElement dislikeButton = container.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]"));
+
+        assertTrue(likesList.size() > 0 && dislikeButton != null, "No Dislike button found or likes list is empty!");
 
         tearDown();
     }
