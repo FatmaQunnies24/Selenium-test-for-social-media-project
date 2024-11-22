@@ -25,7 +25,7 @@ class ReelPageTests {
 
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:/chromedriver-win64/chromedriver-win64/chromedriver.exe/");
+        System.setProperty("webdriver.chrome.driver", "C:/Users/fatim/Desktop/chromedriver-win64/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("http://localhost:3000/");
@@ -63,7 +63,7 @@ void testCreateReel() {
 
     WebElement uploadFileInput = driver.findElement(By.cssSelector("input[type='file']"));
     
-    uploadFileInput.sendKeys("c:/Users/lenovo/OneDrive/Desktop/WhatsApp Video 2024-11-15 at 20.09.18_9ff2d918.mp4");
+    uploadFileInput.sendKeys("C:/Users/fatim/Desktop/ReelPageTests.java - quiz - Visual Studio Code 2024-11-12 14-49-25.mp4");
 
     WebElement createReelButton = driver.findElement(By.xpath("//button[contains(text(),'Create Reel')]"));
     createReelButton.click();
