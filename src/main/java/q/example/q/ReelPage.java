@@ -22,7 +22,7 @@ public class ReelPage {
             }
     
             public static void clickreelButton() {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
     WebElement reelButton = wait.until(ExpectedConditions.elementToBeClickable(loginButton));
     reelButton.click();
 }

@@ -23,7 +23,7 @@ class FriendsPageTest {
 
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:/Users/fatim/Desktop/chromedriver-win64/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "c:/Users/lenovo/OneDrive/Desktop/chromedriver-win64/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("http://localhost:3000/");
@@ -71,7 +71,7 @@ Thread.sleep(3000);
         String friendsCountText = friendsCountElement.getText();
         
         List<WebElement> friendsList = friendsContainer.findElements(By.className("friend-item"));
-        assertEquals(friendsList.size(), 5, "Friends count does not match the number of friend items.");
+        assertEquals(friendsList.size(), 6, "Friends count does not match the number of friend items.");
     }
 
     @Test

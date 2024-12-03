@@ -3,6 +3,7 @@ package q.example.q;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -25,53 +26,74 @@ class ReelPageTests {
 
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:/Users/fatim/Desktop/chromedriver-win64/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "c:/Users/lenovo/OneDrive/Desktop/chromedriver-win64/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("http://localhost:3000/");
         loginPage = new LoginPage(driver);
         reelPage = new ReelPage(driver);
     }
-
+@Tag("non-parallel")
     @Test
     void testIfReelsArePresent() {
         loginPage.enterUsername("fatma2");
         loginPage.enterPassword("123mai321");
         loginPage.clickLoginButton();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
-            ReelPage.clickreelButton();
+        WebElement reelButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"root\"]/div[2]/div[1]/nav/div/ul/li[2]/a")));
+        reelButton.click();
+            // wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
+            // ReelPage.clickreelButton();
+            // wait.until(ExpectedConditions.urlToBe("http://localhost:3000/Reel"));
+
                 wait.until(ExpectedConditions.urlToBe("http://localhost:3000/Reel"));
             WebElement reelContainer = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Real")));
             assertTrue(reelContainer.findElements(By.className("post")).size() > 0, "No reels found!");
     }
     
-
     @Test
-void testCreateReel() {
-    loginPage.enterUsername("fatma2");
-    loginPage.enterPassword("123mai321");
-    loginPage.clickLoginButton();
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
-    wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
-    ReelPage.clickreelButton();
-    wait.until(ExpectedConditions.urlToBe("http://localhost:3000/Reel"));
-
-    WebElement reelContentTextArea = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".postContent")));
+    void testCreateReel() {
+        // تسجيل الدخول
+        loginPage.enterUsername("fatma2");
+        loginPage.enterPassword("123mai321");
+        loginPage.clickLoginButton();
     
-    reelContentTextArea.sendKeys("This is a new reel for testing!");
-
-    WebElement uploadFileInput = driver.findElement(By.cssSelector("input[type='file']"));
+        // الانتظار للتأكد من تحميل الصفحة
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
     
-    uploadFileInput.sendKeys("C:/Users/fatim/Desktop/ReelPageTests.java - quiz - Visual Studio Code 2024-11-12 14-49-25.mp4");
-
-    WebElement createReelButton = driver.findElement(By.xpath("//button[contains(text(),'Create Reel')]"));
-    createReelButton.click();
-
-    WebElement reelContainer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Real")));
-    assertTrue(reelContainer.findElements(By.className("post")).size() > 0, "Reel was not created!");
-}
+        // النقر على زر "Reel"
+        WebElement reelButton = wait.until(ExpectedConditions.elementToBeClickable(
+            By.xpath("//*[@id=\"root\"]/div[2]/div[1]/nav/div/ul/li[2]/a")));
+        reelButton.click();
+    
+        // الانتظار للتأكد من تغيير الرابط إلى صفحة "Reel"
+        wait.until(ExpectedConditions.urlToBe("http://localhost:3000/Reel"));
+    
+        // إدخال محتوى الريل
+        WebElement reelContentTextArea = wait.until(ExpectedConditions.visibilityOfElementLocated(
+            By.cssSelector(".postContent")));
+        reelContentTextArea.sendKeys("This is a new reel for testing!");
+    
+        // رفع الفيديو
+        WebElement uploadFileInput = wait.until(ExpectedConditions.presenceOfElementLocated(
+            By.cssSelector("input[type='file']")));
+        uploadFileInput.sendKeys("c:/Users/lenovo/OneDrive/Desktop/WhatsApp Video 2024-11-15 at 20.09.18_9ff2d918.mp4");
+    
+        // النقر على زر إنشاء الريل
+        WebElement createReelButton = wait.until(ExpectedConditions.elementToBeClickable(
+            By.xpath("//button[contains(text(),'Create Reel')]")));
+        createReelButton.click();
+    
+        // التحقق من ظهور رسالة نجاح
+        WebElement successToast = wait.until(ExpectedConditions.visibilityOfElementLocated(
+            By.xpath("//div[contains(text(), 'Reel created successfully')]")));
+        assertTrue(successToast.isDisplayed(), "The success message was not displayed!");
+    }
+    
 //@RepeatedTest(10)
+
+@Tag("non-parallel")
 @Test
 void testLikeAndFavoriteReel() throws InterruptedException {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
@@ -80,8 +102,8 @@ void testLikeAndFavoriteReel() throws InterruptedException {
     loginPage.enterUsername("fatma2");
     loginPage.enterPassword("123mai321");
     loginPage.clickLoginButton();
-    
-    ReelPage.clickreelButton();
+    WebElement reelButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"root\"]/div[2]/div[1]/nav/div/ul/li[2]/a")));
+    reelButton.click();
     Thread.sleep(3000);  
     wait.until(ExpectedConditions.urlToBe("http://localhost:3000/Reel"));
 
@@ -131,7 +153,7 @@ System.out.println(initialLikeCount);
 
 
 
-
+@Tag("non-parallel")
 @Test
 //@RepeatedTest(10)
 void testAddCommentToReel() throws InterruptedException {
@@ -147,8 +169,8 @@ void testAddCommentToReel() throws InterruptedException {
     // Wait before navigating to the reel page
     Thread.sleep(1000);  // Wait for 1 second
 
-    // Navigate to reel page
-    ReelPage.clickreelButton();
+    WebElement reelButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"root\"]/div[2]/div[1]/nav/div/ul/li[2]/a")));
+    reelButton.click();
     wait.until(ExpectedConditions.urlToBe("http://localhost:3000/Reel"));
 
     // Wait before continuing to check the feed

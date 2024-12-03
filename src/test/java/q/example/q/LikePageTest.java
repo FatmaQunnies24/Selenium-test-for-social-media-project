@@ -20,10 +20,10 @@ class LikePageTest {
 
     private void setUp(String browser) {
         if (browser.equalsIgnoreCase("chrome")) {
-            System.setProperty("webdriver.chrome.driver", "C:/Users/fatim/Desktop/chromedriver-win64/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "c:/Users/lenovo/OneDrive/Desktop/chromedriver-win64/chromedriver.exe");
             driver = new ChromeDriver();
         } else if (browser.equalsIgnoreCase("edge")) {
-            System.setProperty("webdriver.edge.driver", "C:/Users/fatim/Desktop/msedgedriver.exe");
+            System.setProperty("webdriver.edge.driver", "c:/Users/lenovo/OneDrive/Desktop/edgedriver_win64/msedgedriver.exe");
             driver = new EdgeDriver();
         } else {
             throw new IllegalArgumentException("Unsupported browser: " + browser);
